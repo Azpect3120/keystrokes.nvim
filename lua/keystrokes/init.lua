@@ -7,17 +7,12 @@
 -- returned when the module is called with `require`.
 local M = {}
 
--- Routes calls made to this module to functions in the
--- plugin's other modules.
--- M.fetch_todos = fetch.fetch_todos
--- M.insert_todo = update.insert_todo
--- M.complete_todo = update.complete_todo
-
 function Handler (key)
   print(key)
 end
 
 function M.test ()
-  vim.on_key(Handler)
+  vim.cmd([[autocmd CursorMoved,CursorMovedI * lua Handler(vim.fn.nr2char(vim.fn.getchar()))]])
 end
+
 return M
