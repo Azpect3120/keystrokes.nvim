@@ -51,8 +51,8 @@ function M.update ()
   local keystrokes = "abcdefghij"
 
   -- Text in the center of the window
-  local pad = (" "):rep(math.floor((config.win_opts.width-vim.api.nvim_strwidth(keystrokes))/2))
-  local set_lines = pad .. table.concat(typed_letters, " ") .. pad
+  local pad = (" "):rep(math.floor((25-vim.api.nvim_strwidth(keystrokes))/2))
+  local set_lines = pad .. table.concat({keystrokes}, " ") .. pad
 
 
   -- If the window is toggled on, update the window
