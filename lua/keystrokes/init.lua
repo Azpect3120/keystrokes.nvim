@@ -48,12 +48,17 @@ end
 -- Update the window with the current keystrokes
 function M.update ()
   -- Get the current keystrokes
-  local keystrokes = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"}
+  local keystrokes = "abcdefghij"
+
+  -- Text in the center of the window
+  local pad = (" "):rep(math.floor((config.win_opts.width-vim.api.nvim_strwidth(keystrokes))/2))
+  local set_lines = pad .. table.concat(typed_letters, " ") .. pad
+
 
   -- If the window is toggled on, update the window
   if M.config.toggled then
     -- nvim_buf_set_lines({buffer}, {start}, {end}, {strict_indexing}, {replacement}): nil
-    vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, keystrokes)
+    vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, {set_lines})
   end
 end
 
