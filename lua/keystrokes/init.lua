@@ -94,8 +94,12 @@ local function sanitize (key)
   end
 
   local translated = vim.fn.keytrans(key)
-  print(translated)
 
+  for k, v in pairs(val_table) do
+    if translated == k then
+      return v
+    end
+  end
 
   return key
 end
