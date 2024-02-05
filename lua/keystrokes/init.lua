@@ -25,6 +25,7 @@ function M.createWindow ()
     title_pos="center",         -- title position
   })
 
+  -- Update settings
   M.settings.buffer = buf
   M.settings.window = win
 end
@@ -48,7 +49,7 @@ end
 -- Update the window with the current keystrokes
 function M.update ()
   -- Get the current keystrokes
-  local keystrokes = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"}
+  local keystrokes = M.keys
 
   -- Text in the center of the window
   local window_width = 25     -- WIP: Get from window
@@ -63,6 +64,61 @@ function M.update ()
 end
 
 
+function M.onKeystroke (key)
+  if #M.keys >= M.config.max_display then
+    table.remove(M.keys, 1)
+  end
+  table.insert(M.keys, key)
+  M.update()
+end
+
+-- Start the watcher
+function M.start ()
+  vim.on_keys(M.onKeystroke)
+end
+
+-- local t = function(k) return vim.api.nvim_replace_termcodes(k, true, true, true) end
+--[[ local sanitize_key = function(key)
+    local b = key:byte()
+    for k,v in pairs(spec_table) do
+        if b == k then
+            return v
+        end
+    end
+    if b <= 126 and b >= 33 then
+        return key
+    end
+
+    local translated = vim.fn.keytrans(key)
+
+    local special = spc[translated]
+    if special ~= nil then
+        return special
+    end
+
+    -- Mouse events
+    if translated:match('Left')
+        or translated:match('Mouse')
+        or translated:match('Scroll')
+    then
+        return "󰍽 "
+    end
+
+    return translated
+end
+
+local register_keys = function(key)
+    key = sanitize_key(key)
+
+    if key and plugin_loaded then
+        if #typed_letters >= 5 then
+            table.remove(typed_letters, 1)
+        end
+        table.insert(typed_letters, key)
+        if win_loaded then render() end
+    end
+end ]]
+
 
 -- Setup the plugin REQUIRED
 function M.setup (config)
@@ -70,7 +126,12 @@ function M.setup (config)
   M.settings = {
     window = 0,       -- Holds the window handler OR 0 if no window
     buffer = 0,       -- Holds the buffer handler OR 0 if no buffer
+    -- Holds the namespace handler
+    namespace = vim.api.nvim_create_namespace("keystrokes"),
   }
+
+  -- Holds the keys that have been pressed
+  M.keys = {}
 
   -- Default configuration
   M.config = {
@@ -86,4 +147,5 @@ function M.setup (config)
   end
 end
 
+-- Return the module object
 return M
