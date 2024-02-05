@@ -76,7 +76,6 @@ local spc = {
 
 local spec_table = {
   [32] = "␣",
-  [8] = "⌫",
 }
 
 local val_table = {
@@ -107,6 +106,7 @@ end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
+  print(vim.getChar())
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
