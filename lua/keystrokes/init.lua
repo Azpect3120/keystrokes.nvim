@@ -8,7 +8,7 @@
 local M = {}
 
 -- Create a window for the keystrokes
-function M.CreateWindow ()
+function M.createWindow ()
   -- nvim_create_buf({listed}, {scratch}): buffer handler OR 0 on error
   local buf = vim.api.nvim_create_buf(false, true)
 
@@ -18,7 +18,7 @@ function M.CreateWindow ()
     style="minimal",            -- remove the normal vim setup
     border="rounded",           -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
     row=vim.o.lines,            -- row position
-    col=vim.o.columns + 25,     -- col position
+    col=vim.o.columns,          -- col position
     width=25,                   -- width of the window
     height=3,                   -- height of the window
     title="Keystrokes",         -- title of the window
@@ -35,14 +35,28 @@ function M.toggle ()
   -- If the window is toggled on, create the window
   -- If the window is toggled off, close the window
   if M.config.toggled then
-    M.CreateWindow()
+    M.createWindow()
   else
     -- nvim_win_close({window}, {force}): boolean
     vim.api.nvim_win_close(M.settings.window, true)
   end
 end
 
+-- Update the window with the current keystrokes
+function M.update ()
+  -- Get the current keystrokes
+  local keystrokes = "abcdefghij"
 
+  -- If the window is toggled on, update the window
+  if M.config.toggled then
+    -- nvim_buf_set_lines({buffer}, {start}, {end}, {strict_indexing}, {replacement}): nil
+    vim.api.nvim_buf_set_lines(M.settings.window, 0, -1, false, keystrokes)
+  end
+end
+
+
+
+-- Setup the plugin REQUIRED
 function M.setup (config)
   -- Settings
   M.settings = {
@@ -51,8 +65,8 @@ function M.setup (config)
 
   -- Default configuration
   M.config = {
-    toggled = false,
-    max_display = 10
+    toggled = false,    -- Window is toggled (default: false)
+    max_display = 10,   -- Maximum number of keystrokes to display (default: 10)
   }
 
   -- Overwrite default configuration with provided config
@@ -61,6 +75,8 @@ function M.setup (config)
       M.config[key] = value
     end
   end
+
+  M.update()
 end
 
 return M
