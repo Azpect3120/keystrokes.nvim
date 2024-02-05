@@ -105,17 +105,17 @@ end
 
 local function onChar()
   local char = vim.api.nvim_get_vvar('char')
-  print(char)
+  return char
 end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
-  --[[ if #M.keys >= M.config.max_display then
+  key = onChar()
+  if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
   table.insert(M.keys, sanitize(key))
-  M.update() ]]
-  onChar()
+  M.update()
 end
 
 -- Start the watcher
