@@ -7,22 +7,32 @@
 -- returned when the module is called with `require`.
 local M = {}
 
-local count = 0
-local output = ""
-
 function Handler (key)
-  if count < 5 then
-    output = output .. key
-    count = count + 1
-  else
-    print(output)
-    output = ""
-    count = 0
-  end
+end
+
+local config = {
+  win_opts = {
+  },
+  enable_on_startup = false
+}
+
+local function createWindow ()
+  buf = vim.api.nvim_create_buf(false, true)
+  win = vim.api.nvim_open_win(buf, false, {
+    relative="editor",
+    style="minimal",
+    border="shadow",
+    row=vim.o.lines,
+    col=vim.o.columns,
+    width=25,
+    height=25,
+  })
+  vim.api.nvim_buf_set_option(buf, "filetype", "keys")
 end
 
 function M.test ()
-  vim.cmd([[autocmd CursorMoved,CursorMovedI * lua Handler(vim.fn.nr2char(vim.fn.getchar()))]])
+  -- vim.cmd([[autocmd CursorMoved,CursorMovedI * lua Handler(vim.fn.nr2char(vim.fn.getchar()))]])
+  createWindow()
 end
 
 return M
