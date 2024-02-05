@@ -18,7 +18,7 @@ function M.CreateWindow ()
     style="minimal",            -- remove the normal vim setup
     border="rounded",           -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
     row=vim.o.lines,            -- row position
-    col=vim.o.columns - 25,     -- col position
+    col=vim.o.columns + 25,     -- col position
     width=25,                   -- width of the window
     height=3,                   -- height of the window
     title="Keystrokes",         -- title of the window
