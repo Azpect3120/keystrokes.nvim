@@ -104,7 +104,7 @@ local function sanitize (key)
 end
 
 local function onChar()
-  local char = api.nvim_get_vvar('char')
+  local char = vim.api.nvim_get_vvar('char')
   print(char)
 end
 
