@@ -101,12 +101,10 @@ end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
-  print(key)
-  local testing = vim.api.nvim_get_vvar('char')
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
-  table.insert(M.keys, sanitize(testing))
+  table.insert(M.keys, sanitize(key))
   M.update()
 end
 
