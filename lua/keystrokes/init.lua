@@ -47,12 +47,11 @@ end
 -- Update the window with the current keystrokes
 function M.update ()
   -- Get the current keystrokes
-  local keystrokes = "abcdefghij"
+  local keystrokes = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"}
 
   -- If the window is toggled on, update the window
   if M.config.toggled then
     -- nvim_buf_set_lines({buffer}, {start}, {end}, {strict_indexing}, {replacement}): nil
-    print("Writting keystrokes")
     vim.api.nvim_buf_set_lines(M.settings.window, 0, -1, false, keystrokes)
   end
 end
