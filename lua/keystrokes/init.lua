@@ -25,6 +25,7 @@ function M.createWindow ()
     title_pos="center",         -- title position
   })
 
+  M.settings.buffer = buf
   M.settings.window = win
 end
 
@@ -52,7 +53,7 @@ function M.update ()
   -- If the window is toggled on, update the window
   if M.config.toggled then
     -- nvim_buf_set_lines({buffer}, {start}, {end}, {strict_indexing}, {replacement}): nil
-    vim.api.nvim_buf_set_lines(M.settings.window, 0, -1, false, keystrokes)
+    vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, keystrokes)
   end
 end
 
@@ -62,7 +63,8 @@ end
 function M.setup (config)
   -- Settings
   M.settings = {
-    window = 0
+    window = 0,       -- Holds the window handler OR 0 if no window
+    buffer = 0,       -- Holds the buffer handler OR 0 if no buffer
   }
 
   -- Default configuration
