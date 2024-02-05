@@ -73,7 +73,7 @@ end
 
 -- Start the watcher
 function M.start ()
-  vim.on_keys(onKeystroke)
+  vim.on_key(onKeystroke)
 end
 
 -- Setup the plugin REQUIRED
