@@ -12,17 +12,23 @@ function Handler (key)
 end
 
 local function createWindow ()
+  -- nvim_create_buf({listed}, {scratch}): buffer handler OR 0 on error
   local buf = vim.api.nvim_create_buf(false, true)
-  local win = vim.api.nvim_open_win(buf, false, {
-    relative="editor",
-    style="minimal",
-    border="shadow",
-    row=vim.o.lines,
-    col=vim.o.columns,
-    width=25,
-    height=25,
+
+  -- nvim_open_win(){buffer}, {enter}, {*config}): window handler OR 0 on error
+  vim.api.nvim_open_win(buf, false, {
+    relative="editor",    -- creates float when specified
+    style="minimal",      -- remove the normal vim setup
+    border="rounded",     -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
+    row=vim.o.lines,      -- row position
+    col=vim.o.columns,    -- col position
+    width=25,             -- width of the window
+    height=3,             -- height of the window
+    title="Keystrokes",   -- title of the window
+    title_pos="center",   -- title position
   })
-  vim.api.nvim_buf_set_option(buf, "filetype", "keys")
+
+  -- vim.api.nvim_buf_set_option(buf, "filetype", "keys")
 end
 
 function M.test ()
