@@ -79,6 +79,11 @@ local spec_table = {
   [8] = "⌫",
 }
 
+local val_table = {
+  ["<BS>"] = "⌫",
+  ["<CR>"] = "⏎",
+}
+
 -- Sanitize the keystrokes
 local function sanitize (key)
   local b = key:byte()
@@ -87,6 +92,11 @@ local function sanitize (key)
       return v
     end
   end
+
+  local translated = vim.fn.keytrans(key)
+  print(translated)
+
+
   return key
 end
 
