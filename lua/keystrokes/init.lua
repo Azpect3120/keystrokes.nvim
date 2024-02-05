@@ -19,7 +19,7 @@ function M.createWindow ()
     border="rounded",           -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
     row=vim.o.lines,            -- row position
     col=vim.o.columns,          -- col position
-    width=25,                   -- width of the window
+    width=100,                   -- width of the window
     height=3,                   -- height of the window
     title="Keystrokes",         -- title of the window
     title_pos="center",         -- title position
