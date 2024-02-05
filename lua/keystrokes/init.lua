@@ -8,17 +8,12 @@
 local M = {}
 
 function Handler (key)
+  print(key)
 end
 
-local config = {
-  win_opts = {
-  },
-  enable_on_startup = false
-}
-
 local function createWindow ()
-  buf = vim.api.nvim_create_buf(false, true)
-  win = vim.api.nvim_open_win(buf, false, {
+  local buf = vim.api.nvim_create_buf(false, true)
+  local win = vim.api.nvim_open_win(buf, false, {
     relative="editor",
     style="minimal",
     border="shadow",
