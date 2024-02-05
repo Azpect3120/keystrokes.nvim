@@ -52,7 +52,7 @@ function M.update ()
 
   -- Text in the center of the window
   local window_width = 25     -- WIP: Get from window
-  local padding = (" "):rep(math.floor((window_width-vim.api.nvim_strwidth(keystrokes))/2))
+  local padding = (" "):rep(math.floor((window_width-vim.api.nvim_strwidth(table.concat(keystrokes, "")))/2))
   local set_lines = padding .. table.concat(keystrokes, " ") .. padding
 
   -- If the window is toggled on, update the window
