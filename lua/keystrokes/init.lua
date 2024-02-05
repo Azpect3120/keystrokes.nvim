@@ -38,12 +38,11 @@ function M.toggle ()
   -- If the window is toggled off, close the window
   if M.config.toggled then
     M.createWindow()
+    M.start()
   else
     -- nvim_win_close({window}, {force}): boolean
     vim.api.nvim_win_close(M.settings.window, true)
   end
-
-  M.update()
 end
 
 -- Update the window with the current keystrokes
@@ -76,49 +75,6 @@ end
 function M.start ()
   vim.on_keys(M.onKeystroke)
 end
-
--- local t = function(k) return vim.api.nvim_replace_termcodes(k, true, true, true) end
---[[ local sanitize_key = function(key)
-    local b = key:byte()
-    for k,v in pairs(spec_table) do
-        if b == k then
-            return v
-        end
-    end
-    if b <= 126 and b >= 33 then
-        return key
-    end
-
-    local translated = vim.fn.keytrans(key)
-
-    local special = spc[translated]
-    if special ~= nil then
-        return special
-    end
-
-    -- Mouse events
-    if translated:match('Left')
-        or translated:match('Mouse')
-        or translated:match('Scroll')
-    then
-        return "󰍽 "
-    end
-
-    return translated
-end
-
-local register_keys = function(key)
-    key = sanitize_key(key)
-
-    if key and plugin_loaded then
-        if #typed_letters >= 5 then
-            table.remove(typed_letters, 1)
-        end
-        table.insert(typed_letters, key)
-        if win_loaded then render() end
-    end
-end ]]
-
 
 -- Setup the plugin REQUIRED
 function M.setup (config)
