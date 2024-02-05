@@ -106,7 +106,7 @@ end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
-  print(vim.getChar())
+  print(getChar())
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
