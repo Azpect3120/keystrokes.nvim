@@ -9,10 +9,7 @@ local M = {}
 
 -- Create a window for the keystrokes
 function M.createWindow ()
-  -- nvim_create_buf({listed}, {scratch}): buffer handler OR 0 on error
   local buf = vim.api.nvim_create_buf(false, true)
-
-  -- nvim_open_win(){buffer}, {enter}, {*config}): window handler OR 0 on error
   local win = vim.api.nvim_open_win(buf, false, {
     relative="editor",          -- creates float when specified
     style="minimal",            -- remove the normal vim setup
@@ -40,7 +37,6 @@ function M.toggle ()
     M.createWindow()
     M.start()
   else
-    -- nvim_win_close({window}, {force}): boolean
     vim.api.nvim_win_close(M.settings.window, true)
   end
 end
@@ -57,7 +53,6 @@ function M.update ()
 
   -- If the window is toggled on, update the window
   if M.config.toggled then
-    -- nvim_buf_set_lines({buffer}, {start}, {end}, {strict_indexing}, {replacement}): nil
     vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, {"", set_lines, ""})
   end
 end
@@ -94,6 +89,7 @@ local function sanitize (key)
 
   local translated = vim.fn.keytrans(key)
 
+
   for k, v in pairs(val_table) do
     if translated == k then
       return v
@@ -105,7 +101,7 @@ end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
-  -- key = vim.api.nvim_get_vvar('char')
+  print(vim.api.nvim_get_vvar('char'))
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
