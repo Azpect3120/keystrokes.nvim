@@ -76,6 +76,7 @@ local spec_table = {
 local val_table = {
   ["<BS>"] = "⌫",
   ["<CR>"] = "⏎",
+  ["<Cmd>"] = "",
 }
 
 -- Sanitize the keystrokes
@@ -90,7 +91,6 @@ local function sanitize (key)
   local translated = vim.fn.keytrans(key)
   print(translated)
 
-
   for k, v in pairs(val_table) do
     if translated == k then
       return v
@@ -102,6 +102,7 @@ end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
+  print("key: " .. key)
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
