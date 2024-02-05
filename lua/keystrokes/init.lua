@@ -63,7 +63,7 @@ function M.update ()
 end
 
 
-function M.onKeystroke (key)
+local function onKeystroke (key)
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
@@ -73,7 +73,7 @@ end
 
 -- Start the watcher
 function M.start ()
-  vim.on_keys(M.onKeystroke)
+  vim.on_keys(onKeystroke)
 end
 
 -- Setup the plugin REQUIRED
