@@ -7,8 +7,18 @@
 -- returned when the module is called with `require`.
 local M = {}
 
+local count = 0
+local output = ""
+
 function Handler (key)
-  print(key)
+  if count < 5 then
+    output = output .. key
+    count = count + 1
+  else
+    print(output)
+    output = ""
+    count = 0
+  end
 end
 
 function M.test ()
