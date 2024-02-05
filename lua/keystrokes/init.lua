@@ -104,8 +104,8 @@ local function sanitize (key)
 end
 
 -- Handle the keystrokes
-local function onKeystroke ()
-  key = vim.api.nvim_get_vvar('char')
+local function onKeystroke (key)
+  -- key = vim.api.nvim_get_vvar('char')
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
