@@ -13,7 +13,11 @@ local M = {}
 -- M.insert_todo = update.insert_todo
 -- M.complete_todo = update.complete_todo
 
+function Handler (key)
+  print(key)
+end
+
 function M.test ()
-  print("This is a test!")
+  vim.on_key(Handler)
 end
 return M
