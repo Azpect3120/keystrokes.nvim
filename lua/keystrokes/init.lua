@@ -40,6 +40,8 @@ function M.toggle ()
     -- nvim_win_close({window}, {force}): boolean
     vim.api.nvim_win_close(M.settings.window, true)
   end
+
+  M.update()
 end
 
 -- Update the window with the current keystrokes
@@ -76,8 +78,6 @@ function M.setup (config)
       M.config[key] = value
     end
   end
-
-  M.update()
 end
 
 return M
