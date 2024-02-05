@@ -103,21 +103,26 @@ local function sanitize (key)
   return key
 end
 
+local function onChar()
+  local char = api.nvim_get_vvar('char')
+  print(char)
+end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
-  print(getChar())
-  if #M.keys >= M.config.max_display then
+  --[[ if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
   table.insert(M.keys, sanitize(key))
-  M.update()
+  M.update() ]]
+  onChar()
 end
 
 -- Start the watcher
 function M.start ()
   vim.on_key(onKeystroke)
 end
+
 
 -- Setup the plugin REQUIRED
 function M.setup (config)
