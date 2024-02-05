@@ -62,12 +62,41 @@ function M.update ()
   end
 end
 
+-- TODO: ⇧+ (for shift+), ⌥+ (for alt+) (also see: https://wincent.com/wiki/Unicode_representations_of_modifier_keys)
+--[[ local spec_table = {
+    [9] = " ", [13] = "⏎ ", [27] = "⎋", [32] = "␣",
+    [127] = "", [8] = "⌫ ", -- Not working
+}
+local spc = {
+    ["<BS>"] = "⌫ ",
+    ["<t_\253g>"] = " ", -- lua function (is this really needed?)
+    ["<Cmd>"] = "",
+}
+]]
 
+local spec_table = {
+  [32] = "␣",
+  [8] = "⌫",
+}
+
+-- Sanitize the keystrokes
+local function sanitize (key)
+  local b = key:byte()
+  for k, v in pairs(spec_table) do
+    if b == k then
+      return v
+    end
+  end
+  return key
+end
+
+
+-- Handle the keystrokes
 local function onKeystroke (key)
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
-  table.insert(M.keys, key)
+  table.insert(M.keys, sanitize(key))
   M.update()
 end
 
