@@ -7,16 +7,12 @@
 -- returned when the module is called with `require`.
 local M = {}
 
-function Handler (key)
-  print(key)
-end
-
-local function createWindow ()
+function M.CreateWindow ()
   -- nvim_create_buf({listed}, {scratch}): buffer handler OR 0 on error
   local buf = vim.api.nvim_create_buf(false, true)
 
   -- nvim_open_win(){buffer}, {enter}, {*config}): window handler OR 0 on error
-  vim.api.nvim_open_win(buf, false, {
+  local win = vim.api.nvim_open_win(buf, false, {
     relative="editor",    -- creates float when specified
     style="minimal",      -- remove the normal vim setup
     border="rounded",     -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
@@ -28,12 +24,31 @@ local function createWindow ()
     title_pos="center",   -- title position
   })
 
-  -- vim.api.nvim_buf_set_option(buf, "filetype", "keys")
+  M.window = win
 end
 
-function M.test ()
-  -- vim.cmd([[autocmd CursorMoved,CursorMovedI * lua Handler(vim.fn.nr2char(vim.fn.getchar()))]])
-  createWindow()
+-- Toggle the window on and off
+function M.toggle ()
+  M.config.toggled = not M.config.toggled
+
+  -- If the window is toggled on, create the window
+  -- If the window is toggled off, close the window
+  if M.config.toggled then
+    M.CreateWindow()
+  else
+    -- nvim_win_close({window}, {force}): boolean
+    vim.api.nvim_win_close(M.window, true)
+  end
+end
+
+function M.setup ()
+  -- Set the default window to 0
+  M.window = 0
+
+  -- Default configuration
+  M.config = {
+    toggled = false,
+  }
 end
 
 return M

@@ -12,4 +12,4 @@ endif
 let g:loaded_exampleplugin = 1
 
 " Exposes the plugin's functions for use as commands in Neovim.
-command! -nargs=0 FetchTodos lua require("keystrokes").test()
+command! -nargs=0 Keystrokes lua require("keystrokes").toggle()
