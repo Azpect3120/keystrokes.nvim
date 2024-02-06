@@ -73,6 +73,7 @@ local val_table = {
   ["<Cmd>"] = "",
 }
 
+
 -- Sanitize the keystrokes
 local function sanitize (key)
   local b = key:byte()
@@ -100,7 +101,7 @@ local function sanitize (key)
     return "󰍽 "
   end
 
-  return translated
+  return key
 end
 
 
