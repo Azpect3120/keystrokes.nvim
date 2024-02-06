@@ -112,12 +112,26 @@ local function sanitize (key)
   -- return key
 end
 
+local function newSanitize (key)
+  local translated = vim.fn.nr2char(vim.fn.char2nr(key))
+
+  if val_table[key] then
+    return val_table[key]
+  elseif spec_table[translated] then
+    return spec_table[translated]
+  elseif #key == 1 and key:byte() <= 126 and key:byte() >= 33 then
+    return key
+  else
+    return translated
+  end
+end
+
 -- Handle the keystrokes
 local function onKeystroke (key)
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
-  table.insert(M.keys, sanitize(key))
+  table.insert(M.keys, newSanitize(key))
   M.update()
 end
 
