@@ -89,14 +89,21 @@ local function sanitize (key)
 
   local translated = vim.fn.keytrans(key)
 
-  for k, v in pairs(val_table) do
-    if translated == k then
-      return v
-    end
+  local special = val_table[translated]
+  if special ~= nil then
+    return special
   end
 
-  return key
+  if translated:match('Left')
+    or translated:match('Mouse')
+    or translated:match('Scroll')
+  then
+    return "󰍽 "
+  end
+
+  return translated
 end
+
 
 -- Handle the keystrokes
 local function onKeystroke (key)
