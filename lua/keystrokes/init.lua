@@ -47,7 +47,7 @@ function M.update ()
   local keystrokes = M.keys
 
   -- Text in the center of the window
-  local window_width = 25     -- WIP: Get from window
+  local window_width = 100     -- WIP: Get from window
   local padding = (" "):rep(math.floor((window_width-vim.api.nvim_strwidth(table.concat(keystrokes, " ")))/2))
   local set_lines = padding .. table.concat(keystrokes, " ") .. padding
 
