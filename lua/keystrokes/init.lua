@@ -89,24 +89,23 @@ local function sanitize (key)
   end
 
   local translated = vim.fn.keytrans(key)
-  print(translated)
+  return translated
 
-  for k, v in pairs(val_table) do
+  --[[ for k, v in pairs(val_table) do
     if translated == k then
       return v
     end
-  end
+  end ]]
 
-  return key
+  -- return key
 end
 
 -- Handle the keystrokes
 local function onKeystroke (key)
-  print("key: " .. key)
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
-  table.insert(M.keys, sanitize(key))
+  table.insert(M.keys, key)
   M.update()
 end
 
