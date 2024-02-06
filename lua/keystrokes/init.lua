@@ -147,7 +147,7 @@ function M.setup (config)
   -- Default configuration
   M.config = {
     toggled = false,    -- Window is toggled (default: false)
-    max_display = 10,   -- Maximum number of keystrokes to display (default: 10)
+    max_display = 5,   -- Maximum number of keystrokes to display (default: 5)
     window = {
       width = 25,      -- Width of the window (default: 25)
       height = 3,       -- Height of the window (default: 3)
