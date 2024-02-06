@@ -92,6 +92,10 @@ local function sanitize (key)
     end
   end
 
+  if b <= 126 and b >= 33 then
+    return string.char(b)
+  end
+
   return b
 
   --[[ local translated = vim.fn.keytrans(key)
