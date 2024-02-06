@@ -96,6 +96,8 @@ local function sanitize (key)
     return string.char(b)
   end
 
+  print(key)
+
   return b
 
   --[[ local translated = vim.fn.keytrans(key)
