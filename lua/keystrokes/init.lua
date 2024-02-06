@@ -79,9 +79,8 @@ local val_table = {
   ["<Down>"] = "↓",
   ["<Left>"] = "←",
   ["<Right>"] = "→",
-  ["<t_\253g>"] = " ", -- weird lua stuff
+  ["<t_\253g>"] = "", -- weird lua stuff
 }
-
 
 -- Sanitize the keystrokes
 local function sanitize (key)
