@@ -57,19 +57,6 @@ function M.update ()
   end
 end
 
--- TODO: ⇧+ (for shift+), ⌥+ (for alt+) (also see: https://wincent.com/wiki/Unicode_representations_of_modifier_keys)
---[[ local spec_table = {
-    [9] = " ", [13] = "⏎ ", [27] = "⎋", [32] = "␣",
-    [127] = "", [8] = "⌫ ", -- Not working
-    
-}
-local spc = {
-    ["<BS>"] = "⌫ ",
-    ["<t_\253g>"] = " ", -- lua function (is this really needed?)
-    ["<Cmd>"] = "",
-}
-]]
-
 local spec_table = {
   [32] = "␣",
   [13] = "⏎",
@@ -96,33 +83,15 @@ local function sanitize (key)
     return string.char(b)
   end
 
-  print(key)
+  local translated = vim.fn.keytrans(key)
 
-  return b
-
-  --[[ local translated = vim.fn.keytrans(key)
-  return translated ]]
-
-  --[[ for k, v in pairs(val_table) do
+  for k, v in pairs(val_table) do
     if translated == k then
       return v
     end
-  end ]]
-
-  -- return key
-end
-
-local function newSanitize (key)
-  local translated = vim.fn.nr2char(vim.fn.char2nr(key))
-  local raw_key = vim.fn.escape(vim.api.nvim_replace_termcodes(translated, true, true, true), ' ')
-
-  if val_table[raw_key] then
-    return val_table[raw_key]
-  elseif spec_table[raw_key] then
-    return spec_table[raw_key]
-  else
-    return raw_key
   end
+
+  return key
 end
 
 -- Handle the keystrokes
@@ -130,7 +99,7 @@ local function onKeystroke (key)
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
-  table.insert(M.keys, newSanitize(key))
+  table.insert(M.keys, sanitize(key))
   M.update()
 end
 
