@@ -110,7 +110,7 @@ local function sanitize (key)
     return "󰍽 "
   end
 
-  return key
+  return translated
 end
 
 
