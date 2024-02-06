@@ -114,7 +114,7 @@ end
 
 local function newSanitize (key)
   local translated = vim.fn.nr2char(vim.fn.char2nr(key))
-  local raw_key = vim.fn.escape(vim.fn.nvim_replace_termcodes(translated, true, true, true), ' ')
+  local raw_key = vim.fn.escape(vim.api.nvim_replace_termcodes(translated, true, true, true), ' ')
 
   if val_table[raw_key] then
     return val_table[raw_key]
