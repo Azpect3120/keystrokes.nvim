@@ -137,8 +137,10 @@ end
 
 -- Start the watcher
 function M.start ()
-  M.listening = true
-  vim.on_key(onKeystroke)
+  if not M.settings.listening then
+    M.settings.listening = true
+    vim.on_key(onKeystroke)
+  end
 end
 
 -- Setup the plugin REQUIRED
