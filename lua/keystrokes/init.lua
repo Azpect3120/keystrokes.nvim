@@ -76,8 +76,7 @@ local val_table = {
 -- Sanitize the keystrokes
 local function sanitize (key)
   local b = key:byte()
-  return b
-  --[[ for k, v in pairs(spec_table) do
+  for k, v in pairs(spec_table) do
     if b == k then
       return v
     end
@@ -101,7 +100,7 @@ local function sanitize (key)
     return "󰍽 "
   end
 
-  return translated ]]
+  return translated
 end
 
 
