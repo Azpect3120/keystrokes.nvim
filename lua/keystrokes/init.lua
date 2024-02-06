@@ -16,10 +16,10 @@ function M.createWindow ()
     border="rounded",           -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
     row=vim.o.lines,            -- row position
     col=vim.o.columns,          -- col position
-    width=M.config.window.width,
-    height=M.config.window.height,
-    title=M.config.window.title,
-    title_pos=M.config.window.title_pos,
+    width=M.config.window.width or 25,
+    height=M.config.window.height or 3,
+    title=M.config.window.title or "Keystrokes",
+    title_pos=M.config.window.title_pos or "center",
   })
 
   -- Update settings
