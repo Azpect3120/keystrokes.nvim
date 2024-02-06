@@ -71,6 +71,9 @@ local spc = {
 
 local spec_table = {
   [32] = "␣",
+  [13] = "⏎",
+  [128] = "⌫",
+  [58] = ":",
 }
 
 local val_table = {
@@ -88,7 +91,7 @@ local function sanitize (key)
     end
   end
 
-  return b
+  return string.char(b)
 
   --[[ local translated = vim.fn.keytrans(key)
   return translated ]]
