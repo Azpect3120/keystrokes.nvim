@@ -38,7 +38,6 @@ function M.toggle ()
     M.start()
   else
     vim.api.nvim_win_close(M.settings.window, true)
-    M.stop()
   end
 end
 
