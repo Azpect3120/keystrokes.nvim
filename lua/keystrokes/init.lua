@@ -114,15 +114,14 @@ end
 
 local function newSanitize (key)
   local translated = vim.fn.nr2char(vim.fn.char2nr(key))
+  local raw_key = vim.fn.escape(vim.fn.nvim_replace_termcodes(translated, true, true, true), ' ')
 
-  if val_table[key] then
-    return val_table[key]
-  elseif spec_table[translated] then
-    return spec_table[translated]
-  elseif #key == 1 and key:byte() <= 126 and key:byte() >= 33 then
-    return key
+  if val_table[raw_key] then
+    return val_table[raw_key]
+  elseif spec_table[raw_key] then
+    return spec_table[raw_key]
   else
-    return translated
+    return raw_key
   end
 end
 
