@@ -14,8 +14,8 @@ function M.createWindow ()
     relative="editor",          -- creates float when specified
     style="minimal",            -- remove the normal vim setup
     border="rounded",           -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
-    row=vim.o.lines,            -- row position
-    col=vim.o.columns / 2,          -- col position
+    row=vim.o.lines - 10,            -- row position
+    col=vim.o.columns,          -- col position
     width=M.config.window.width or 25,
     height=M.config.window.height or 3,
     title=M.config.window.title or "Keystrokes",
