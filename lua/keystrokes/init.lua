@@ -38,6 +38,7 @@ function M.toggle ()
     M.start()
   else
     vim.api.nvim_win_close(M.settings.window, true)
+    M.stop()
   end
 end
 
@@ -136,9 +137,9 @@ end
 
 -- Start the watcher
 function M.start ()
+  M.listening = true
   vim.on_key(onKeystroke)
 end
-
 
 -- Setup the plugin REQUIRED
 function M.setup (config)
@@ -148,6 +149,7 @@ function M.setup (config)
     buffer = 0,       -- Holds the buffer handler OR 0 if no buffer
     -- Holds the namespace handler
     namespace = vim.api.nvim_create_namespace("keystrokes"),
+    listening = false, -- Whether the plugin is listening for keystrokes
   }
 
   -- Holds the keys that have been pressed
