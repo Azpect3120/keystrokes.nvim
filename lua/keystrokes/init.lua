@@ -16,10 +16,10 @@ function M.createWindow ()
     border="rounded",           -- options: "single", "double", "shadow", "rounded", "none", "solid", or array of 8 characters. eg. [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
     row=vim.o.lines,            -- row position
     col=vim.o.columns,          -- col position
-    width=100,                   -- width of the window
-    height=3,                   -- height of the window
-    title="Keystrokes",         -- title of the window
-    title_pos="center",         -- title position
+    width=M.config.window.width,
+    height=M.config.window.height,
+    title=M.config.window.title,
+    title_pos=M.config.window.title_pos,
   })
 
   -- Update settings
@@ -29,6 +29,7 @@ end
 
 -- Toggle the window on and off
 function M.toggle ()
+  -- Toggle the window
   M.config.toggled = not M.config.toggled
 
   -- If the window is toggled on, create the window
@@ -47,7 +48,7 @@ function M.update ()
   local keystrokes = M.keys
 
   -- Text in the center of the window
-  local window_width = 100     -- WIP: Get from window
+  local window_width = M.config.window.width
   local padding = (" "):rep(math.floor((window_width-vim.api.nvim_strwidth(table.concat(keystrokes, " ")))/2))
   local set_lines = padding .. table.concat(keystrokes, " ") .. padding
 
@@ -57,6 +58,7 @@ function M.update ()
   end
 end
 
+-- Byte to special character mapping
 local spec_table = {
   [32] = "␣",
   [13] = "⏎",
@@ -65,11 +67,13 @@ local spec_table = {
   [9] = "»",
 }
 
+-- Value to special character mapping
 local val_table = {
   ["<BS>"] = "⌫",
   ["<CR>"] = "⏎",
   ["<Cmd>"] = "",
 }
+
 -- Sanitize the keystrokes
 local function sanitize (key)
   local b = key:byte()
@@ -129,6 +133,13 @@ function M.setup (config)
   M.config = {
     toggled = false,    -- Window is toggled (default: false)
     max_display = 10,   -- Maximum number of keystrokes to display (default: 10)
+    window = {
+      width = 25,      -- Width of the window (default: 25)
+      height = 3,       -- Height of the window (default: 3)
+      title = "Keystrokes", -- Title of the window (default: "Keystrokes")
+      title_pos = "center", -- Title position (default: "center")
+      border = "rounded",   -- Border style (default: "rounded")
+    },
   }
 
   -- Overwrite default configuration with provided config
