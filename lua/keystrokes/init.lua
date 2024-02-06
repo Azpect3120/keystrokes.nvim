@@ -62,7 +62,6 @@ end
 local spec_table = {
   [32] = "␣",
   [13] = "⏎",
-  [128] = "⌫",
   [58] = ":",
   [9] = "»",
 }
@@ -111,7 +110,7 @@ local function onKeystroke (key)
   if #M.keys >= M.config.max_display then
     table.remove(M.keys, 1)
   end
-  table.insert(M.keys, sanitize(key))
+  table.insert(M.keys, M.config.max_display, sanitize(key))
   M.update()
 end
 
