@@ -157,6 +157,11 @@ function M.setup (config)
     },
   }
 
+  -- Enable on start up
+  if M.config.toggled then
+    M.createWindow()
+  end
+
   -- Overwrite default configuration with provided config
   if config then
     for key, value in pairs(config) do
