@@ -146,7 +146,6 @@ function M.setup (config)
 
   -- Default configuration
   M.config = {
-    enabled_on_start = false, -- Whether the plugin is enabled on start (default: false)
     toggled = false,    -- Window is toggled (default: false)
     max_display = 5,   -- Maximum number of keystrokes to display (default: 5)
     window = {
@@ -157,12 +156,6 @@ function M.setup (config)
       border = "rounded",   -- Border style (default: "rounded")
     },
   }
-
-  -- Enable the plugin on start if enabled_on_start is true
-  if M.config.enabled_on_start then
-    M.toggle()
-  end
-
 
   -- Overwrite default configuration with provided config
   if config then
