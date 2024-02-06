@@ -61,6 +61,7 @@ end
 --[[ local spec_table = {
     [9] = " ", [13] = "⏎ ", [27] = "⎋", [32] = "␣",
     [127] = "", [8] = "⌫ ", -- Not working
+    
 }
 local spc = {
     ["<BS>"] = "⌫ ",
@@ -74,6 +75,7 @@ local spec_table = {
   [13] = "⏎",
   [128] = "⌫",
   [58] = ":",
+  [9] = "»",
 }
 
 local val_table = {
@@ -81,7 +83,6 @@ local val_table = {
   ["<CR>"] = "⏎",
   ["<Cmd>"] = "",
 }
-
 -- Sanitize the keystrokes
 local function sanitize (key)
   local b = key:byte()
