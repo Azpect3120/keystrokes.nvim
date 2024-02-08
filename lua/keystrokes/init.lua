@@ -35,6 +35,7 @@ function M.toggle ()
   -- If the window is toggled on, create the window
   -- If the window is toggled off, close the window
   if M.config.toggled then
+    M.keys = {}
     M.createWindow()
     M.start()
   else
