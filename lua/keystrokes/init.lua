@@ -55,7 +55,7 @@ function M.update ()
   -- If the window is toggled on, update the window
   if M.config.toggled then
     print(M.settings.buffer)
-    vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, { string.gsub(set_lines, "\n", "") })
+    vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, { string.gsub(set_lines, "\n", ""), "" })
   end
 end
 
