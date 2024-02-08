@@ -54,8 +54,18 @@ function M.update ()
 
   -- If the window is toggled on, update the window
   if M.config.toggled then
-    print(M.settings.buffer)
-    vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, { string.gsub(set_lines, "\n", ""), "" })
+    -- Generate the table for replacing
+    local lines = {}
+     -- Find middle line
+    local middle = math.ceil(M.config.window.height / 2)
+    for i = 1, M.config.window.height do
+      if i == middle then
+        table.insert(lines, set_lines)
+      else
+        table.insert(lines, "")
+      end
+    end
+    vim.api.nvim_buf_set_lines(M.settings.buffer, 0, -1, false, lines)
   end
 end
 
